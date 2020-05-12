@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WhatsAppClone</string>
+    <string name="phone_number_hint">Enter you Phone Number</string>
+    <string name="verification_code_hint">Enter Verification Code</string>
+    <string name="send_code_string">Send Verification Code</string>
+    <string name="log_out_string">Log out</string>
+    <string name="verify_code_string">Verify Code</string>
+</resources>
