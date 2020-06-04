@@ -12,10 +12,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.database.*
 import com.himanshu.whatsappclone.activities.MainPageActivity
 import java.util.concurrent.TimeUnit
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private var mPhoneNumberEditText: EditText? = null
     private var mVerificationCodeEditText: EditText? = null
@@ -80,7 +81,30 @@ class MainActivity : AppCompatActivity() {
         ) { task ->
             run {
                 if (task.isSuccessful) {
-                    userIsLoggedIn()
+
+                    Log.d ("", "Task is successful.")
+                    val user : FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                    if (user != null) {
+                        // put user in database
+                        val userDBRef : DatabaseReference = FirebaseDatabase.getInstance().reference.child("users").child(user.uid)
+                        userDBRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                if (!dataSnapshot.exists()) {
+                                    val userMap : HashMap < String, Any> = HashMap()
+                                    user.phoneNumber?.let { userMap.put("phone", it) }
+                                    user.phoneNumber?.let { userMap.put ("name", it) }
+                                    userDBRef.updateChildren(userMap)
+                                }
+                                userIsLoggedIn()
+                            }
+
+                            override fun onCancelled(p0: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+                        })
+                    }
+
+
                 }
             }
         }

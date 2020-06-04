@@ -3,12 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainPageActivity">
+    tools:context=".activities.MainPageActivity"
+    style="?android:attr/buttonBarStyle">
+
+    <Button
+        android:id="@+id/button_find_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/find_user_string"
+        style="?android:attr/buttonBarButtonStyle"/>
 
     <Button
         android:id="@+id/button_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_out_string" />
+        android:text="@string/log_out_string"
+        style="?android:attr/buttonBarButtonStyle"/>
 
 </LinearLayout>
